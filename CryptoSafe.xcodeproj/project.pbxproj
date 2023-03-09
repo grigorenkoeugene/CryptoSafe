@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842513A829B5F90900950A68 /* RequestServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513A729B5F90900950A68 /* RequestServer.swift */; };
+		842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513AA29B5FF3400950A68 /* MainTableViewCell.swift */; };
+		8447EE4729B744D200F171FE /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447EE4629B744D200F171FE /* BasicViewController.swift */; };
+		84D1821329B1CC5F0049EDB2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */; };
+		84D1821529B1EE6D0049EDB2 /* CryptoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */; };
 		84E9839529AE04B7008525FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9839429AE04B7008525FA /* AppDelegate.swift */; };
 		84E9839729AE04B7008525FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9839629AE04B7008525FA /* SceneDelegate.swift */; };
-		84E9839929AE04B7008525FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9839829AE04B7008525FA /* ViewController.swift */; };
+		84E9839929AE04B7008525FA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9839829AE04B7008525FA /* LoginViewController.swift */; };
 		84E9839C29AE04B7008525FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E9839A29AE04B7008525FA /* Main.storyboard */; };
 		84E9839E29AE04BA008525FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84E9839D29AE04BA008525FA /* Assets.xcassets */; };
 		84E983A129AE04BA008525FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E9839F29AE04BA008525FA /* LaunchScreen.storyboard */; };
@@ -36,10 +41,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		842513A729B5F90900950A68 /* RequestServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServer.swift; sourceTree = "<group>"; };
+		842513AA29B5FF3400950A68 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		8447EE4629B744D200F171FE /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
+		84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoModel.swift; sourceTree = "<group>"; };
 		84E9839129AE04B7008525FA /* CryptoSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E9839429AE04B7008525FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84E9839629AE04B7008525FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		84E9839829AE04B7008525FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		84E9839829AE04B7008525FA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		84E9839B29AE04B7008525FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84E9839D29AE04BA008525FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84E983A029AE04BA008525FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -76,6 +86,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840A3EFE29B9CBD200B5A01A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		842513A629B5F8F500950A68 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				842513A729B5F90900950A68 /* RequestServer.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		842513A929B5FEFB00950A68 /* Cells  */ = {
+			isa = PBXGroup;
+			children = (
+				842513AA29B5FF3400950A68 /* MainTableViewCell.swift */,
+			);
+			path = "Cells ";
+			sourceTree = "<group>";
+		};
 		84E9838829AE04B7008525FA = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +133,14 @@
 		84E9839329AE04B7008525FA /* CryptoSafe */ = {
 			isa = PBXGroup;
 			children = (
+				842513A929B5FEFB00950A68 /* Cells  */,
+				842513A629B5F8F500950A68 /* Networking */,
+				840A3EFE29B9CBD200B5A01A /* Models */,
 				84E9839429AE04B7008525FA /* AppDelegate.swift */,
 				84E9839629AE04B7008525FA /* SceneDelegate.swift */,
-				84E9839829AE04B7008525FA /* ViewController.swift */,
+				84E9839829AE04B7008525FA /* LoginViewController.swift */,
+				84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */,
+				8447EE4629B744D200F171FE /* BasicViewController.swift */,
 				84E9839A29AE04B7008525FA /* Main.storyboard */,
 				84E9839D29AE04BA008525FA /* Assets.xcassets */,
 				84E9839F29AE04BA008525FA /* LaunchScreen.storyboard */,
@@ -258,9 +297,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84E9839929AE04B7008525FA /* ViewController.swift in Sources */,
+				84D1821329B1CC5F0049EDB2 /* MainTableViewController.swift in Sources */,
+				842513A829B5F90900950A68 /* RequestServer.swift in Sources */,
+				84E9839929AE04B7008525FA /* LoginViewController.swift in Sources */,
+				842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */,
 				84E9839529AE04B7008525FA /* AppDelegate.swift in Sources */,
+				8447EE4729B744D200F171FE /* BasicViewController.swift in Sources */,
 				84E9839729AE04B7008525FA /* SceneDelegate.swift in Sources */,
+				84D1821529B1EE6D0049EDB2 /* CryptoModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
