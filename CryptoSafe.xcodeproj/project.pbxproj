@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840A3F0029B9E80F00B5A01A /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A3EFF29B9E80F00B5A01A /* Users.swift */; };
 		842513A829B5F90900950A68 /* RequestServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513A729B5F90900950A68 /* RequestServer.swift */; };
 		842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513AA29B5FF3400950A68 /* MainTableViewCell.swift */; };
 		8447EE4729B744D200F171FE /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447EE4629B744D200F171FE /* BasicViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		840A3EFF29B9E80F00B5A01A /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		842513A729B5F90900950A68 /* RequestServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServer.swift; sourceTree = "<group>"; };
 		842513AA29B5FF3400950A68 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		8447EE4629B744D200F171FE /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */,
+				840A3EFF29B9E80F00B5A01A /* Users.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D1821329B1CC5F0049EDB2 /* MainTableViewController.swift in Sources */,
+				840A3F0029B9E80F00B5A01A /* Users.swift in Sources */,
 				842513A829B5F90900950A68 /* RequestServer.swift in Sources */,
 				84E9839929AE04B7008525FA /* LoginViewController.swift in Sources */,
 				842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */,

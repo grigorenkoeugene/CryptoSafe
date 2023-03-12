@@ -3,12 +3,16 @@ import UIKit
 
 class MainTableViewController: UIViewController {
     
-//    var cryptoArray = ["bitcoin","ethereum","tron", "luna","polkadot", "dogecoin", "tether", "stellar", "cardano", "xrp"]
+    
+    enum SortOrder {
+        case ascending
+        case descending
+        case back
+    }
     
     private var assets: [Asset] = []
     private var originalAssets: [Asset] = []
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
-
     private var tableView: UITableView = UITableView()
     
     override func viewDidLoad() {
@@ -17,8 +21,6 @@ class MainTableViewController: UIViewController {
         setupTableView()
         setupActivityIndicator()
         navigationController()
-        print("asdf")
-        
         RequestServer().fetchAssets { [weak self] assets in
             guard let assets = assets else {
                 return
@@ -32,12 +34,8 @@ class MainTableViewController: UIViewController {
         }
     }
 
-    
     @objc func backAction() {
-        let defaults = UserDefaults.standard
-            defaults.removeObject(forKey: "login")
-            defaults.removeObject(forKey: "password")
-            defaults.synchronize()
+        UserDefaults.standard.set(false, forKey: "authorization")
         let previousViewController = LoginViewController()
         let navigationController = UINavigationController(rootViewController: previousViewController)
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -50,28 +48,15 @@ class MainTableViewController: UIViewController {
     @objc func sortAction() {
         let alertController = UIAlertController(title: "Сортировка", message: "Выберите вариант сортировки:", preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "По возрастанию цены", style: .default) { action in
-            self.assets = self.assets.sorted { (asset1, asset2) -> Bool in
-                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
-                    return false
-                }
-                return Double(priceUsd1) ?? 0 < Double(priceUsd2) ?? 0
-            }
-            self.tableView.reloadData()
+            self.sortAssets(by: .ascending)
         }
 
         let action2 = UIAlertAction(title: "По убыванию цены", style: .default) { action in
-            self.assets = self.assets.sorted { (asset1, asset2) -> Bool in
-                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
-                    return false
-                }
-                return Double(priceUsd1) ?? 0 > Double(priceUsd2) ?? 0
-            }
-            self.tableView.reloadData()
+            self.sortAssets(by: .descending)
         }
 
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { action in
-            self.assets = self.originalAssets
-            self.tableView.reloadData()
+            self.sortAssets(by: .back)
         }
 
         alertController.addAction(action1)
@@ -82,6 +67,28 @@ class MainTableViewController: UIViewController {
 
     }
     
+    private func sortAssets(by sortOrder: SortOrder) {
+        switch sortOrder {
+        case .ascending:
+            assets = assets.sorted { (asset1, asset2) -> Bool in
+                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
+                    return false
+                }
+                return Double(priceUsd1) ?? 0 < Double(priceUsd2) ?? 0
+            }
+        case .descending:
+            assets = assets.sorted { (asset1, asset2) -> Bool in
+                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
+                    return false
+                }
+                return Double(priceUsd1) ?? 0 > Double(priceUsd2) ?? 0
+            }
+        case .back:
+            self.assets = self.originalAssets
+        }
+        tableView.reloadData()
+    }
+
     private func navigationController() {
         self.title = "Крипта"
         let backButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(backAction))

@@ -8,6 +8,8 @@
 import Foundation
 
 class RequestServer {
+//    var cryptoArray = ["bitcoin","ethereum","tron", "luna","polkadot", "dogecoin", "tether", "stellar", "cardano", "xrp"]
+
     func fetchAssets(completion: @escaping ([Asset]?) -> Void) {
         guard let url = URL(string: "https://api.coincap.io/v2/assets") else {
             completion(nil)

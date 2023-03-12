@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     var emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
@@ -56,53 +56,27 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-            let defaults = UserDefaults.standard
-            let email = defaults.string(forKey: "login")
-            let password = defaults.string(forKey: "password")
+        if UserDefaults.standard.bool(forKey: "authorization") == true {
+            presentMainTableViewController()
+        } else {
+            self.view.addSubview(emailLabel)
+            self.view.addSubview(emailTextField)
+            self.view.addSubview(passwordLabel)
+            self.view.addSubview(passwordTextField)
+            self.view.addSubview(loginButton)
 
-            if email != nil && password != nil {
-                let vc = MainTableViewController()
-                let navigationController = UINavigationController(rootViewController: vc)
-                navigationController.modalPresentationStyle = .fullScreen
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                    let window = windowScene.windows.first {
-                    window.rootViewController = navigationController
-                    window.makeKeyAndVisible()
-                }
-            } else {
-                self.view.addSubview(emailLabel)
-                self.view.addSubview(emailTextField)
-                self.view.addSubview(passwordLabel)
-                self.view.addSubview(passwordTextField)
-                self.view.addSubview(loginButton)
-
-                createEmailTextFieldConstraints()
-                createEmailLabelConstraints()
-                createPasswordTextFieldConstraints()
-                createPasswordLabelConstraints()
-                createLoginButtonConstraints()
-            }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        let defaults = UserDefaults.standard
-        defaults.set(emailTextField.text, forKey: "login")
-        defaults.set(passwordTextField.text, forKey: "password")
-            
-        defaults.synchronize()
+            createEmailTextFieldConstraints()
+            createEmailLabelConstraints()
+            createPasswordTextFieldConstraints()
+            createPasswordLabelConstraints()
+            createLoginButtonConstraints()
+        }
     }
     
     @objc func loginOnClick() {
         if emailTextField.text == "1234" && passwordTextField.text == "1234" {
-            let vc = MainTableViewController()
-            let navigationController = UINavigationController(rootViewController: vc)
-            navigationController.modalPresentationStyle = .fullScreen
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
-                window.rootViewController = navigationController
-                window.makeKeyAndVisible()
-            }
+            UserDefaults.standard.set(true, forKey: "authorization")
+            presentMainTableViewController()
         } else {
             let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль.", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
@@ -110,8 +84,15 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @objc func backAction() {
-        dismiss(animated: true, completion: nil)
+    private func presentMainTableViewController() {
+        let vc = MainTableViewController()
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = navigationController
+            window.makeKeyAndVisible()
+        }
     }
     
     private func createEmailLabelConstraints() {
