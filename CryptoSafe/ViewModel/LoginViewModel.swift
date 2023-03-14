@@ -1,10 +1,3 @@
-//
-//  LoginViewModel.swift
-//  CryptoSafe
-//
-//  Created by admin on 12.03.2023.
-//
-
 import UIKit
 
 class LoginViewModel: LoginViewModelProt {

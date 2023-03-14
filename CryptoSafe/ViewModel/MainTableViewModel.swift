@@ -1,10 +1,3 @@
-//
-//  MainViewModel.swift
-//  CryptoSafe
-//
-//  Created by admin on 13.03.2023.
-//
-
 import Foundation
 
 class MainTableViewModel {
@@ -43,28 +36,22 @@ class MainTableViewModel {
         switch sortOrder {
         case .ascending:
             assets = assets.sorted { (asset1, asset2) -> Bool in
-                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
-                    return false
-                }
-                return Double(priceUsd1) ?? 0 < Double(priceUsd2) ?? 0
+                return convertToDouble(asset1.priceUsd) ?? 0 < convertToDouble(asset2.priceUsd) ?? 0
             }
         case .descending:
             assets = assets.sorted { (asset1, asset2) -> Bool in
-                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
-                    return false
-                }
-                return Double(priceUsd1) ?? 0 > Double(priceUsd2) ?? 0
+                return convertToDouble(asset1.priceUsd) ?? 0 > convertToDouble(asset2.priceUsd) ?? 0
             }
         case .back:
             assets = originalAssets
         }
     }
     
-    func formatPrice(_ price: Double?) -> String {
-        guard let price = price else {
+    func formatPrice(_ price: String?) -> String {
+        guard let priceString = price, let priceDouble = Double(priceString) else {
             return "$0.00"
         }
-        return String(format: "$%.5f", price)
+        return String(format: "$%.5f", priceDouble)
     }
     
     func convertToDouble(_ string: String?) -> Double? {

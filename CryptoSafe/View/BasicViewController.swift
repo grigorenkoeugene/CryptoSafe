@@ -1,10 +1,3 @@
-//
-//  BasicViewController.swift
-//  CryptoSafe
-//
-//  Created by admin on 07.03.2023.
-//
-
 import UIKit
 
 class BasicViewController: UIViewController {

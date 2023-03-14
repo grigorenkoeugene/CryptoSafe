@@ -1,10 +1,3 @@
-//
-//  MainTableViewCell.swift
-//  CryptoSafe
-//
-//  Created by admin on 06.03.2023.
-//
-
 import UIKit
 
 class MainTableViewCell: UITableViewCell {

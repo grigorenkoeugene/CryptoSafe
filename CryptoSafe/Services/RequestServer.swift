@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  CryptoSafe
-//
-//  Created by admin on 06.03.2023.
-//
-
 import Foundation
 
 class RequestServer {

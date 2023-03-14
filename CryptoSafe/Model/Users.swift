@@ -1,10 +1,3 @@
-//
-//  Users.swift
-//  CryptoSafe
-//
-//  Created by admin on 09.03.2023.
-//
-
 import Foundation
 
 struct Users {

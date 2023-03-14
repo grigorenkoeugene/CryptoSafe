@@ -1,22 +1,17 @@
-//
-//  ViewController.swift
-//  CryptoSafe
-//
-//  Created by admin on 28.02.2023.
-//
-
 import UIKit
 
 class LoginViewController: UIViewController {
-    var viewModel = LoginViewModel()
-    var emailLabel: UILabel = {
+    
+    private var viewModel = LoginViewModel()
+    
+    private var emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    var emailTextField: UITextField = {
+    private var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Write email"
         textField.backgroundColor = .systemGray
@@ -25,14 +20,14 @@ class LoginViewController: UIViewController {
         return textField
     }()
     
-    var passwordLabel: UILabel = {
+    private var passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    var passwordTextField: UITextField = {
+    private var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Write password"
         textField.backgroundColor = .systemGray
@@ -41,7 +36,7 @@ class LoginViewController: UIViewController {
         return textField
     }()
     
-    var loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("LogIn", for: .normal)
@@ -53,24 +48,21 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var viewModel = LoginViewModel()
-        if UserDefaults.standard.bool(forKey: "authorization") == true {
-            viewModel.switchScreen(MainTableViewController())
-        } else {
-            viewModel = LoginViewModel()
-            view.backgroundColor = .white
-            self.view.addSubview(emailLabel)
-            self.view.addSubview(emailTextField)
-            self.view.addSubview(passwordLabel)
-            self.view.addSubview(passwordTextField)
-            self.view.addSubview(loginButton)
-
-            createEmailTextFieldConstraints()
-            createEmailLabelConstraints()
-            createPasswordTextFieldConstraints()
-            createPasswordLabelConstraints()
-            createLoginButtonConstraints()
-        }
+        
+        viewModel = LoginViewModel()
+        self.view.backgroundColor = .white
+        self.view.addSubview(emailLabel)
+        self.view.addSubview(emailTextField)
+        self.view.addSubview(passwordLabel)
+        self.view.addSubview(passwordTextField)
+        self.view.addSubview(loginButton)
+        
+        createEmailTextFieldConstraints()
+        createEmailLabelConstraints()
+        createPasswordTextFieldConstraints()
+        createPasswordLabelConstraints()
+        createLoginButtonConstraints()
+        
     }
     
     @objc func loginOnClick() {
@@ -84,13 +76,12 @@ class LoginViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
-        
+    
     private func createEmailLabelConstraints() {
         emailLabel.leftAnchor.constraint(equalTo: emailTextField.leftAnchor).isActive = true
         emailLabel.rightAnchor.constraint(equalTo: emailTextField.rightAnchor).isActive = true
         emailLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor).isActive = true
         emailLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
     }
     
     private func createEmailTextFieldConstraints() {
@@ -105,7 +96,6 @@ class LoginViewController: UIViewController {
         passwordLabel.rightAnchor.constraint(equalTo: passwordTextField.rightAnchor).isActive = true
         passwordLabel.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor).isActive = true
         passwordLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
     }
     
     private func createPasswordTextFieldConstraints() {

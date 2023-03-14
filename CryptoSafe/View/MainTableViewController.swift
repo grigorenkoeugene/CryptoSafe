@@ -1,20 +1,11 @@
-
 import UIKit
 
 class MainTableViewController: UIViewController {
     
-    private var assets: [Asset] = []
-    private var originalAssets: [Asset] = []
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     private var tableView: UITableView = UITableView()
-    var loginViewModel = LoginViewModel()
-    var tableViewModel = MainTableViewModel()
-    
-    private enum SortOrder {
-        case ascending
-        case descending
-        case back
-    }
+    private var loginViewModel = LoginViewModel()
+    private var tableViewModel = MainTableViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,56 +22,36 @@ class MainTableViewController: UIViewController {
             }
         }
     }
-
+    
     @objc func backAction() {
         UserDefaults.standard.set(false, forKey: "authorization")
         loginViewModel.switchScreen(LoginViewController())
     }
-
+    
     @objc func sortAction() {
         let alertController = UIAlertController(title: "Сортировка", message: "Выберите вариант сортировки:", preferredStyle: .actionSheet)
         let action1 = UIAlertAction(title: "По возрастанию цены", style: .default) { action in
-            self.sortAssets(by: .ascending)
+            self.tableViewModel.sortAssets(by: .ascending)
+            self.tableView.reloadData()
         }
-
+        
         let action2 = UIAlertAction(title: "По убыванию цены", style: .default) { action in
-            self.sortAssets(by: .descending)
+            self.tableViewModel.sortAssets(by: .descending)
+            self.tableView.reloadData()
         }
-
+        
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { action in
-            self.sortAssets(by: .back)
+            self.tableViewModel.sortAssets(by: .back)
+            self.tableView.reloadData()
         }
-
+        
         alertController.addAction(action1)
         alertController.addAction(action2)
         alertController.addAction(cancelAction)
-
+        
         present(alertController, animated: true, completion: nil)
-
     }
     
-    private func sortAssets(by sortOrder: SortOrder) {
-        switch sortOrder {
-        case .ascending:
-            assets = assets.sorted { (asset1, asset2) -> Bool in
-                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
-                    return false
-                }
-                return Double(priceUsd1) ?? 0 < Double(priceUsd2) ?? 0
-            }
-        case .descending:
-            assets = assets.sorted { (asset1, asset2) -> Bool in
-                guard let priceUsd1 = asset1.priceUsd, let priceUsd2 = asset2.priceUsd else {
-                    return false
-                }
-                return Double(priceUsd1) ?? 0 > Double(priceUsd2) ?? 0
-            }
-        case .back:
-            self.assets = self.originalAssets
-        }
-        tableView.reloadData()
-    }
-
     private func navigationController() {
         self.title = "Крипта"
         let backButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(backAction))
@@ -95,10 +66,10 @@ class MainTableViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "cell")
         NSLayoutConstraint.activate([
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-        tableView.topAnchor.constraint(equalTo: view.topAnchor),
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -112,25 +83,24 @@ class MainTableViewController: UIViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-
+    
 }
 
 extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let asset = assets[indexPath.row]
+        let asset = tableViewModel.asset(atIndex: indexPath.row)
         let basicView = BasicViewController()
         basicView.idLabel.text = "id: \(asset.id)"
         basicView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Exite", style: .done, target: self, action: #selector(dismis))
         let navigation = UINavigationController(rootViewController: basicView)
-                navigation.modalPresentationStyle = .fullScreen
-                present(navigation, animated: true)
+        navigation.modalPresentationStyle = .fullScreen
+        present(navigation, animated: true)
     }
     
     @objc func dismis() {
         dismiss(animated: true, completion: nil)
-
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -145,11 +115,10 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MainTableViewCell else {
             fatalError("Unable to dequeue MainTableViewCell")
         }
-
+        
         let asset = tableViewModel.asset(atIndex: indexPath.row)
         cell.titleLabel.text = asset.name
-        let priceDouble = tableViewModel.convertToDouble(asset.priceUsd)
-        cell.subtitleLabel.text = tableViewModel.formatPrice(priceDouble)
+        cell.subtitleLabel.text = tableViewModel.formatPrice(asset.priceUsd)
         return cell
     }
 }

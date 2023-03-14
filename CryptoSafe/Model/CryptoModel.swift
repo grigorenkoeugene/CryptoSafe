@@ -1,10 +1,3 @@
-//
-//  CryptoModel.swift
-//  CryptoSafe
-//
-//  Created by admin on 03.03.2023.
-//
-
 import Foundation
 
 
