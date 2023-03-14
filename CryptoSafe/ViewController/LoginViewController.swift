@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    
+    var viewModel = LoginViewModel()
     var emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email"
@@ -51,14 +51,14 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-
+        var viewModel = LoginViewModel()
         if UserDefaults.standard.bool(forKey: "authorization") == true {
-            presentMainTableViewController()
+            viewModel.switchScreen(MainTableViewController())
         } else {
+            viewModel = LoginViewModel()
+            view.backgroundColor = .white
             self.view.addSubview(emailLabel)
             self.view.addSubview(emailTextField)
             self.view.addSubview(passwordLabel)
@@ -74,27 +74,17 @@ class LoginViewController: UIViewController {
     }
     
     @objc func loginOnClick() {
-        if emailTextField.text == "1234" && passwordTextField.text == "1234" {
+        if let email = emailTextField.text, let password = passwordTextField.text,
+            viewModel.checkLogin(email: email, password: password)  {
             UserDefaults.standard.set(true, forKey: "authorization")
-            presentMainTableViewController()
+            viewModel.switchScreen(MainTableViewController())
         } else {
             let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль.", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
-    private func presentMainTableViewController() {
-        let vc = MainTableViewController()
-        let navigationController = UINavigationController(rootViewController: vc)
-        navigationController.modalPresentationStyle = .fullScreen
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
-        }
-    }
-    
+        
     private func createEmailLabelConstraints() {
         emailLabel.leftAnchor.constraint(equalTo: emailTextField.leftAnchor).isActive = true
         emailLabel.rightAnchor.constraint(equalTo: emailTextField.rightAnchor).isActive = true

@@ -10,7 +10,7 @@ import UIKit
 class MainTableViewCell: UITableViewCell {
 
     let titleLabel = UILabel()
-        let subtitleLabel = UILabel()
+    let subtitleLabel = UILabel()
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -3,17 +3,18 @@ import UIKit
 
 class MainTableViewController: UIViewController {
     
-    
-    enum SortOrder {
-        case ascending
-        case descending
-        case back
-    }
-    
     private var assets: [Asset] = []
     private var originalAssets: [Asset] = []
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     private var tableView: UITableView = UITableView()
+    var loginViewModel = LoginViewModel()
+    var tableViewModel = MainTableViewModel()
+    
+    private enum SortOrder {
+        case ascending
+        case descending
+        case back
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,14 +22,11 @@ class MainTableViewController: UIViewController {
         setupTableView()
         setupActivityIndicator()
         navigationController()
-        RequestServer().fetchAssets { [weak self] assets in
-            guard let assets = assets else {
-                return
-            }
-            self?.assets = assets
+        
+        activityIndicator.startAnimating()
+        tableViewModel.fetchAssets { [weak self] _ in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
-                self?.originalAssets = assets
                 self?.tableView.reloadData()
             }
         }
@@ -36,13 +34,7 @@ class MainTableViewController: UIViewController {
 
     @objc func backAction() {
         UserDefaults.standard.set(false, forKey: "authorization")
-        let previousViewController = LoginViewController()
-        let navigationController = UINavigationController(rootViewController: previousViewController)
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
-        }
+        loginViewModel.switchScreen(LoginViewController())
     }
 
     @objc func sortAction() {
@@ -111,15 +103,15 @@ class MainTableViewController: UIViewController {
     }
     
     private func setupActivityIndicator() {
-            activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-            activityIndicator.hidesWhenStopped = true
-            activityIndicator.startAnimating()
-            view.addSubview(activityIndicator)
-            NSLayoutConstraint.activate([
-                activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
-        }
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
 
 }
 
@@ -142,7 +134,7 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return assets.count
+        return tableViewModel.numberOfRows
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -153,24 +145,11 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MainTableViewCell else {
             fatalError("Unable to dequeue MainTableViewCell")
         }
-        let asset = assets[indexPath.row]
+
+        let asset = tableViewModel.asset(atIndex: indexPath.row)
         cell.titleLabel.text = asset.name
-        let priceDouble = convertToDouble(asset.priceUsd)
-        cell.subtitleLabel.text = formatPrice(priceDouble)
-        cell.accessoryType = .disclosureIndicator
+        let priceDouble = tableViewModel.convertToDouble(asset.priceUsd)
+        cell.subtitleLabel.text = tableViewModel.formatPrice(priceDouble)
         return cell
     }
-    
-    private func formatPrice(_ price: Double?) -> String {
-        guard let price = price else {
-            return "$0.00"
-        }
-        return String(format: "$%.5f", price)
-    }
-    
-    private func convertToDouble(_ string: String?) -> Double? {
-        guard let string = string else { return nil }
-        return Double(string)
-    }
-
 }

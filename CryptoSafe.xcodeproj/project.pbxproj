@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		840A3F0029B9E80F00B5A01A /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A3EFF29B9E80F00B5A01A /* Users.swift */; };
+		84221E2429BE27A10050FF73 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84221E2329BE27A10050FF73 /* LoginViewModel.swift */; };
+		84221E2729BE28DF0050FF73 /* LoginViewModelProt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84221E2629BE28DF0050FF73 /* LoginViewModelProt.swift */; };
 		842513A829B5F90900950A68 /* RequestServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513A729B5F90900950A68 /* RequestServer.swift */; };
 		842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513AA29B5FF3400950A68 /* MainTableViewCell.swift */; };
 		8447EE4729B744D200F171FE /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447EE4629B744D200F171FE /* BasicViewController.swift */; };
+		84596C3A29BF11EA00FAF4DC /* MainTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84596C3929BF11EA00FAF4DC /* MainTableViewModel.swift */; };
 		84D1821329B1CC5F0049EDB2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */; };
 		84D1821529B1EE6D0049EDB2 /* CryptoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */; };
 		84E9839529AE04B7008525FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9839429AE04B7008525FA /* AppDelegate.swift */; };
@@ -43,9 +46,12 @@
 
 /* Begin PBXFileReference section */
 		840A3EFF29B9E80F00B5A01A /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		84221E2329BE27A10050FF73 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		84221E2629BE28DF0050FF73 /* LoginViewModelProt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelProt.swift; sourceTree = "<group>"; };
 		842513A729B5F90900950A68 /* RequestServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServer.swift; sourceTree = "<group>"; };
 		842513AA29B5FF3400950A68 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		8447EE4629B744D200F171FE /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
+		84596C3929BF11EA00FAF4DC /* MainTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewModel.swift; sourceTree = "<group>"; };
 		84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoModel.swift; sourceTree = "<group>"; };
 		84E9839129AE04B7008525FA /* CryptoSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,21 +94,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		840A3EFE29B9CBD200B5A01A /* Models */ = {
+		840A3EFE29B9CBD200B5A01A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */,
 				840A3EFF29B9E80F00B5A01A /* Users.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		842513A629B5F8F500950A68 /* Networking */ = {
+		84221E2229BE276A0050FF73 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				84221E2329BE27A10050FF73 /* LoginViewModel.swift */,
+				84596C3929BF11EA00FAF4DC /* MainTableViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		84221E2529BE28C40050FF73 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84221E2629BE28DF0050FF73 /* LoginViewModelProt.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84221E2829BE5F730050FF73 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				842513A929B5FEFB00950A68 /* Cells  */,
+				84E9839829AE04B7008525FA /* LoginViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		842513A629B5F8F500950A68 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				842513A729B5F90900950A68 /* RequestServer.swift */,
 			);
-			path = Networking;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		842513A929B5FEFB00950A68 /* Cells  */ = {
@@ -136,12 +168,13 @@
 		84E9839329AE04B7008525FA /* CryptoSafe */ = {
 			isa = PBXGroup;
 			children = (
-				842513A929B5FEFB00950A68 /* Cells  */,
-				842513A629B5F8F500950A68 /* Networking */,
-				840A3EFE29B9CBD200B5A01A /* Models */,
+				842513A629B5F8F500950A68 /* Services */,
+				840A3EFE29B9CBD200B5A01A /* Model */,
+				84221E2529BE28C40050FF73 /* Protocols */,
+				84221E2229BE276A0050FF73 /* ViewModel */,
+				84221E2829BE5F730050FF73 /* ViewController */,
 				84E9839429AE04B7008525FA /* AppDelegate.swift */,
 				84E9839629AE04B7008525FA /* SceneDelegate.swift */,
-				84E9839829AE04B7008525FA /* LoginViewController.swift */,
 				84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */,
 				8447EE4629B744D200F171FE /* BasicViewController.swift */,
 				84E9839A29AE04B7008525FA /* Main.storyboard */,
@@ -302,13 +335,16 @@
 			files = (
 				84D1821329B1CC5F0049EDB2 /* MainTableViewController.swift in Sources */,
 				840A3F0029B9E80F00B5A01A /* Users.swift in Sources */,
+				84221E2729BE28DF0050FF73 /* LoginViewModelProt.swift in Sources */,
 				842513A829B5F90900950A68 /* RequestServer.swift in Sources */,
 				84E9839929AE04B7008525FA /* LoginViewController.swift in Sources */,
 				842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */,
 				84E9839529AE04B7008525FA /* AppDelegate.swift in Sources */,
 				8447EE4729B744D200F171FE /* BasicViewController.swift in Sources */,
 				84E9839729AE04B7008525FA /* SceneDelegate.swift in Sources */,
+				84221E2429BE27A10050FF73 /* LoginViewModel.swift in Sources */,
 				84D1821529B1EE6D0049EDB2 /* CryptoModel.swift in Sources */,
+				84596C3A29BF11EA00FAF4DC /* MainTableViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
