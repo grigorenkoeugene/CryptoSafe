@@ -30,6 +30,7 @@ class MainTableViewController: UIViewController {
     
     @objc func sortAction() {
         let alertController = UIAlertController(title: "Сортировка", message: "Выберите вариант сортировки:", preferredStyle: .actionSheet)
+        
         let action1 = UIAlertAction(title: "По возрастанию цены", style: .default) { action in
             self.tableViewModel.sortAssets(by: .ascending)
             self.tableView.reloadData()
@@ -93,7 +94,7 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
         let asset = tableViewModel.asset(atIndex: indexPath.row)
         let basicView = BasicViewController()
         basicView.idLabel.text = "id: \(asset.id)"
-        basicView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Exite", style: .done, target: self, action: #selector(dismis))
+        basicView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Назад", style: .done, target: self, action: #selector(dismis))
         let navigation = UINavigationController(rootViewController: basicView)
         navigation.modalPresentationStyle = .fullScreen
         present(navigation, animated: true)
