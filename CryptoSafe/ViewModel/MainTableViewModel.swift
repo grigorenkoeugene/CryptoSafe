@@ -1,23 +1,20 @@
 import Foundation
 
-class MainTableViewModel {
+
+
+class MainTableViewModel: MainTableViewViewModelType {
     
-    enum SortOrder {
-        case ascending
-        case descending
-        case back
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> MainTableViewCellViewModelType? {
+        let assets = assets[indexPath.row]
+        return MainTableViewCellViewModel(assets: assets) 
     }
     
     private var assets: [Asset] = []
     private var originalAssets: [Asset] = []
     private var sortOrder: SortOrder = .back
 
-    var numberOfRows: Int {
+    func numberOfRows() -> Int {
         return assets.count
-    }
-
-    func asset(atIndex index: Int) -> Asset {
-        return assets[index]
     }
 
     func fetchAssets(completion: @escaping (Error?) -> Void) {

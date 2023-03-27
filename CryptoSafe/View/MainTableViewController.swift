@@ -5,17 +5,18 @@ class MainTableViewController: UIViewController {
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     private var tableView: UITableView = UITableView()
     private var loginViewModel = LoginViewModel()
-    private var tableViewModel = MainTableViewModel()
     
+    var viewModel: MainTableViewViewModelType?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(tableView)
+        viewModel = MainTableViewModel()
         setupTableView()
         setupActivityIndicator()
         navigationController()
-        
         activityIndicator.startAnimating()
-        tableViewModel.fetchAssets { [weak self] _ in
+        viewModel?.fetchAssets { [weak self] _ in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 self?.tableView.reloadData()
@@ -32,17 +33,17 @@ class MainTableViewController: UIViewController {
         let alertController = UIAlertController(title: "Сортировка", message: "Выберите вариант сортировки:", preferredStyle: .actionSheet)
         
         let action1 = UIAlertAction(title: "По возрастанию цены", style: .default) { action in
-            self.tableViewModel.sortAssets(by: .ascending)
+            self.viewModel?.sortAssets(by: .ascending)
             self.tableView.reloadData()
         }
         
         let action2 = UIAlertAction(title: "По убыванию цены", style: .default) { action in
-            self.tableViewModel.sortAssets(by: .descending)
+            self.viewModel?.sortAssets(by: .descending)
             self.tableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { action in
-            self.tableViewModel.sortAssets(by: .back)
+            self.viewModel?.sortAssets(by: .back)
             self.tableView.reloadData()
         }
         
@@ -89,23 +90,23 @@ class MainTableViewController: UIViewController {
 
 extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let asset = tableViewModel.asset(atIndex: indexPath.row)
-        let basicView = BasicViewController()
-        basicView.idLabel.text = "id: \(asset.id)"
-        basicView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Назад", style: .done, target: self, action: #selector(dismis))
-        let navigation = UINavigationController(rootViewController: basicView)
-        navigation.modalPresentationStyle = .fullScreen
-        present(navigation, animated: true)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        let asset = tableViewModel.asset(atIndex: indexPath.row)
+//        let basicView = BasicViewController()
+//        basicView.idLabel.text = "id: \(asset.id)"
+//        basicView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(dismis))
+//        let navigation = UINavigationController(rootViewController: basicView)
+//        navigation.modalPresentationStyle = .fullScreen
+//        present(navigation, animated: true)
+//    }
     
     @objc func dismis() {
         dismiss(animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewModel.numberOfRows
+        return viewModel?.numberOfRows() ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -113,13 +114,12 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MainTableViewCell else {
-            fatalError("Unable to dequeue MainTableViewCell")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MainTableViewCell
         
-        let asset = tableViewModel.asset(atIndex: indexPath.row)
-        cell.titleLabel.text = asset.name
-        cell.subtitleLabel.text = tableViewModel.formatPrice(asset.priceUsd)
-        return cell
+        guard let tableViewCell = cell, let viewModel = viewModel else { return UITableViewCell() }
+        
+        let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
+        tableViewCell.viewModel = cellViewModel
+        return tableViewCell
     }
 }

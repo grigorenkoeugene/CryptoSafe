@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewModel: LoginViewModelProt {
+class LoginViewModel: LoginViewModelType {
     func switchScreen(_ screan: UIViewController) {
         let vc = screan
         let navigationController = UINavigationController(rootViewController: vc)

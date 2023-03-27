@@ -5,6 +5,13 @@ class MainTableViewCell: UITableViewCell {
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
 
+    weak var viewModel: MainTableViewCellViewModelType? {
+        willSet(viewModel) {
+            guard let viewModel = viewModel else { return }
+            titleLabel.text = viewModel.name
+            subtitleLabel.text = viewModel.price 
+        }
+    }
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
 
