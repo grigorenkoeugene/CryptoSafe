@@ -45,7 +45,7 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
         }
     }
     
-    // MARK: - Data sorting method
+    // MARK: - Method
 
     func numberOfRows() -> Int {
         return assets.count
@@ -61,12 +61,12 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
         return assets[index]
     }
     
-    func basicCellViewModel(forIndexPath indexPath: IndexPath) -> CurrencyDetailViewModel? {
+    func cyrrencyDetailCellViewModel(forIndexPath indexPath: IndexPath) -> CurrencyDetailViewModel? {
         guard let asset = asset(atIndex: indexPath.row) else { return nil }
         return CurrencyDetailViewModel(id: asset.id, name: asset.name, supply: asset.supply)
     }
 
-    func basicViewModel(forAsset asset: Asset) -> CurrencyDetailViewModel {
+    func cyrrencyDetailViewModel(forAsset asset: Asset) -> CurrencyDetailViewModel {
         return CurrencyDetailViewModel(id: "id: \(asset.id)", name: "name: \(asset.name)", supply: "supply: \(asset.supply)")
     }
     

@@ -19,9 +19,11 @@ class LoginViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.indent(size: 10)
         textField.outdent(size: 50)
+        textField.keyboardType = .default
+        textField.returnKeyType = .done
         return textField
     }()
-    
+
     private var passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "Password"
@@ -38,6 +40,8 @@ class LoginViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.indent(size: 10)
         textField.outdent(size: 50)
+        textField.keyboardType = .default
+        textField.returnKeyType = .done
         return textField
     }()
     
@@ -97,6 +101,28 @@ class LoginViewController: UIViewController {
         return image
     }()
     
+    private var noneAccountlabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Don't have an account yet?"
+        label.alpha = 0.3
+        return label
+    }()
+    
+    private lazy var createAccountButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Create an account", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        let attributedString = NSAttributedString(string: "Create an account", attributes:
+            [.underlineStyle: NSUnderlineStyle.single.rawValue,
+             .underlineColor: UIColor.black])
+        button.setAttributedTitle(attributedString, for: .normal)
+        button.backgroundColor = UIColor.clear
+        button.addTarget(self, action: #selector(createAccountOnClick), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(newView)
@@ -108,18 +134,15 @@ class LoginViewController: UIViewController {
         self.view.addSubview(passwordLabel)
         self.view.addSubview(passwordTextField)
         self.view.addSubview(loginButton)
-        
+        self.view.addSubview(noneAccountlabel)
+        self.view.addSubview(createAccountButton)
         self.emailTextField.addSubview(imageViewEmailTextField)
         self.passwordTextField.addSubview(imageViewPasswordTextField)
         
-        createImageHomeConstraints()
-        createEmailTextFieldConstraints()
-        createEmailLabelConstraints()
-        createPasswordTextFieldConstraints()
-        createPasswordLabelConstraints()
-        createLoginButtonConstraints()
-        createImageEmailTextFieldConstraints()
-        createImagePasswordTextFieldConstraints()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        createConstraintsOnView()
     }
     
     @objc func loginOnClick() {
@@ -128,76 +151,91 @@ class LoginViewController: UIViewController {
             UserDefaults.standard.set(true, forKey: "authorization")
             viewModel.switchScreen(CryptoCurrencyTableViewController())
         } else {
-            let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль.", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            alertMessage(title: "Error", message: "Invalid username or password.", buttonTitle: "OK")
         }
     }
     
-    private func createEmailLabelConstraints() {
-        emailLabel.leftAnchor.constraint(equalTo: emailTextField.leftAnchor).isActive = true
-        emailLabel.rightAnchor.constraint(equalTo: emailTextField.rightAnchor).isActive = true
-        emailLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor).isActive = true
-        emailLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    @objc func createAccountOnClick() {
+        alertMessage(title: "Error", message: "This feature is not available.", buttonTitle: "OK")
     }
     
-    private func createEmailTextFieldConstraints() {
-        emailTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 55).isActive = true
-        emailTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -55).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: imageHome.bottomAnchor, constant: 30).isActive = true
-        emailTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
+    private func alertMessage(title: String, message: String, buttonTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
-    private func createPasswordLabelConstraints() {
-        passwordLabel.leftAnchor.constraint(equalTo: passwordTextField.leftAnchor).isActive = true
-        passwordLabel.rightAnchor.constraint(equalTo: passwordTextField.rightAnchor).isActive = true
-        passwordLabel.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor).isActive = true
-        passwordLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-    }
-    
-    private func createPasswordTextFieldConstraints() {
-        passwordTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 55).isActive = true
-        passwordTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -55).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 40).isActive = true
-        passwordTextField.heightAnchor.constraint(equalToConstant: 45).isActive = true
-    }
-    
-    private func createLoginButtonConstraints() {
-        loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 65).isActive = true
-        loginButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -65).isActive = true
-        loginButton.topAnchor.constraint(equalTo: newView.bottomAnchor, constant: -25).isActive = true
-        loginButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    }
-    
-    private func createNewViewConstraints() {
+    private func createConstraintsOnView() {
         NSLayoutConstraint.activate([
+            
+            // newView constraints
             newView.leftAnchor.constraint(equalTo: view.leftAnchor),
             newView.rightAnchor.constraint(equalTo: view.rightAnchor),
             newView.topAnchor.constraint(equalTo: view.topAnchor),
-            newView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/1.4)
+            newView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/1.4),
+            
+            // imageHome constraints
+            imageHome.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageHome.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            
+            // emailLabel constraints
+            emailLabel.leftAnchor.constraint(equalTo: emailTextField.leftAnchor),
+            emailLabel.rightAnchor.constraint(equalTo: emailTextField.rightAnchor),
+            emailLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor),
+            emailLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            // emailTextField constraints
+            emailTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 55),
+            emailTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -55),
+            emailTextField.topAnchor.constraint(equalTo: imageHome.bottomAnchor, constant: 30),
+            emailTextField.heightAnchor.constraint(equalToConstant: 45),
+            
+            // imageViewEmailTextField constraints
+            imageViewEmailTextField.rightAnchor.constraint(equalTo: emailTextField.rightAnchor, constant: -20),
+            imageViewEmailTextField.centerYAnchor.constraint(equalTo: emailTextField.centerYAnchor),
+            imageViewEmailTextField.widthAnchor.constraint(equalToConstant: 20),
+            imageViewEmailTextField.heightAnchor.constraint(equalToConstant: 20),
+            
+            // passwordLabel constraints
+            passwordLabel.leftAnchor.constraint(equalTo: passwordTextField.leftAnchor),
+            passwordLabel.rightAnchor.constraint(equalTo: passwordTextField.rightAnchor),
+            passwordLabel.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor),
+            passwordLabel.heightAnchor.constraint(equalToConstant: 30),
+            
+            // passwordTextField constraints
+            passwordTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 55),
+            passwordTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -55),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 40),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 45),
+            
+            // imageViewPasswordTextField constraints
+            imageViewPasswordTextField.rightAnchor.constraint(equalTo: passwordTextField.rightAnchor, constant: -14),
+            imageViewPasswordTextField.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor),
+            imageViewPasswordTextField.widthAnchor.constraint(equalToConstant: 30),
+            imageViewPasswordTextField.heightAnchor.constraint(equalToConstant: 30),
+            
+            // loginButton constraints
+            loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 65),
+            loginButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -65),
+            loginButton.topAnchor.constraint(equalTo: newView.bottomAnchor, constant: -25),
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            // noneAccountlabel constraints
+            noneAccountlabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noneAccountlabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 45),
+            noneAccountlabel.heightAnchor.constraint(equalToConstant: 18),
+            
+            // createAccountButton constraints
+            createAccountButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            createAccountButton.topAnchor.constraint(equalTo: noneAccountlabel.bottomAnchor, constant: 20),
+            createAccountButton.heightAnchor.constraint(equalToConstant: 18)
         ])
     }
+}
 
-    
-    private func createImageHomeConstraints() {
-        imageHome.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        imageHome.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    
-    private func createImageEmailTextFieldConstraints() {
-        imageViewEmailTextField.rightAnchor.constraint(equalTo: emailTextField.rightAnchor, constant: -20).isActive = true
-        imageViewEmailTextField.centerYAnchor.constraint(equalTo: emailTextField.centerYAnchor).isActive = true
-        imageViewEmailTextField.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        imageViewEmailTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
-
-    }
-    
-    private func createImagePasswordTextFieldConstraints() {
-        imageViewPasswordTextField.rightAnchor.constraint(equalTo: passwordTextField.rightAnchor, constant: -14).isActive = true
-        imageViewPasswordTextField.centerYAnchor.constraint(equalTo: passwordTextField.centerYAnchor).isActive = true
-        imageViewPasswordTextField.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        imageViewPasswordTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-
-    }
-    
 }

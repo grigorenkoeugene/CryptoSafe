@@ -92,7 +92,7 @@ extension CryptoCurrencyTableViewController: UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let asset = viewModel?.asset(atIndex: indexPath.row), let basicViewModel = viewModel?.basicViewModel(forAsset: asset) {
+        if let asset = viewModel?.asset(atIndex: indexPath.row), let basicViewModel = viewModel?.cyrrencyDetailViewModel(forAsset: asset) {
             let basicView = CurrencyDetailViewController(viewModel: basicViewModel)
             navigationController?.pushViewController(basicView, animated: true)
         }

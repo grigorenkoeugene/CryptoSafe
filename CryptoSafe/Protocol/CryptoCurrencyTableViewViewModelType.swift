@@ -7,6 +7,6 @@ protocol CryptoCurrencyTableViewViewModelType {
     func fetchAssets(completion: @escaping (Error?) -> Void)
     func sortAssets(by sortOrder: SortOrder)
     func asset(atIndex index: Int) -> Asset?
-    func basicCellViewModel(forIndexPath indexPath: IndexPath) -> CurrencyDetailViewModel?
-    func basicViewModel(forAsset asset: Asset) -> CurrencyDetailViewModel
+    func cyrrencyDetailCellViewModel(forIndexPath indexPath: IndexPath) -> CurrencyDetailViewModel?
+    func cyrrencyDetailViewModel(forAsset asset: Asset) -> CurrencyDetailViewModel
 }
