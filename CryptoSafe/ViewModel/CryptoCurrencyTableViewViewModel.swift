@@ -1,21 +1,20 @@
 import Foundation
 
+enum SortOrder {
+    case ascending
+    case descending
+    case back
+}
 
+class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
+    
+    // MARK: - Properties
 
-class MainTableViewModel: MainTableViewViewModelType {
-    
-    func cellViewModel(forIndexPath indexPath: IndexPath) -> MainTableViewCellViewModelType? {
-        let assets = assets[indexPath.row]
-        return MainTableViewCellViewModel(assets: assets) 
-    }
-    
     private var assets: [Asset] = []
     private var originalAssets: [Asset] = []
-    private var sortOrder: SortOrder = .back
 
-    func numberOfRows() -> Int {
-        return assets.count
-    }
+    
+    // MARK: - Methods for getting data
 
     func fetchAssets(completion: @escaping (Error?) -> Void) {
         RequestServer().fetchAssets { [weak self] assets in
@@ -28,6 +27,8 @@ class MainTableViewModel: MainTableViewViewModelType {
             completion(nil)
         }
     }
+    
+    // MARK: - Data sorting method
 
     func sortAssets(by sortOrder: SortOrder) {
         switch sortOrder {
@@ -43,6 +44,32 @@ class MainTableViewModel: MainTableViewViewModelType {
             assets = originalAssets
         }
     }
+    
+    // MARK: - Data sorting method
+
+    func numberOfRows() -> Int {
+        return assets.count
+    }
+    
+    func cellViewModel(forIndexPath indexPath: IndexPath) -> CryptoCurrencyTableViewCellViewModelType? {
+        let assets = assets[indexPath.row]
+        return CryptoCurrencyTableViewCellViewModel(assets: assets)
+    }
+    
+    func asset(atIndex index: Int) -> Asset? {
+        guard index >= 0, index < assets.count else { return nil }
+        return assets[index]
+    }
+    
+    func basicCellViewModel(forIndexPath indexPath: IndexPath) -> CurrencyDetailViewModel? {
+        guard let asset = asset(atIndex: indexPath.row) else { return nil }
+        return CurrencyDetailViewModel(id: asset.id, name: asset.name, supply: asset.supply)
+    }
+
+    func basicViewModel(forAsset asset: Asset) -> CurrencyDetailViewModel {
+        return CurrencyDetailViewModel(id: "id: \(asset.id)", name: "name: \(asset.name)", supply: "supply: \(asset.supply)")
+    }
+    
     
     func formatPrice(_ price: String?) -> String {
         guard let priceString = price, let priceDouble = Double(priceString) else {

@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 10
         textField.indent(size: 10)
+        textField.outdent(size: 50)
         return textField
     }()
     
@@ -36,6 +37,7 @@ class LoginViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.cornerRadius = 10
         textField.indent(size: 10)
+        textField.outdent(size: 50)
         return textField
     }()
     
@@ -124,7 +126,7 @@ class LoginViewController: UIViewController {
         if let email = emailTextField.text, let password = passwordTextField.text,
             viewModel.checkLogin(email: email, password: password)  {
             UserDefaults.standard.set(true, forKey: "authorization")
-            viewModel.switchScreen(MainTableViewController())
+            viewModel.switchScreen(CryptoCurrencyTableViewController())
         } else {
             let alert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль.", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
@@ -198,11 +200,4 @@ class LoginViewController: UIViewController {
 
     }
     
-}
-
-extension UITextField {
-    func indent(size:CGFloat) {
-        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
-        self.leftViewMode = .always
-    }
 }

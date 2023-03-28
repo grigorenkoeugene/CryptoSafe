@@ -1,12 +1,12 @@
 import Foundation
 
-struct Users {
+struct User {
     let login: String
     let password: String
 }
 
-extension Users {
+extension User {
     static var logins = [
-        Users(login: "1234", password: "1234")
+        User(login: "1234", password: "1234")
     ]
 }

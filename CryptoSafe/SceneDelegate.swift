@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         var rootViewController: UIViewController
         if isLoggedIn {
-            let vc = MainTableViewController()
+            let vc = CryptoCurrencyTableViewController()
             rootViewController = UINavigationController(rootViewController: vc)
         } else {
             let vc = LoginViewController()

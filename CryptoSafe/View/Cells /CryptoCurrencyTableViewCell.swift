@@ -1,11 +1,11 @@
 import UIKit
 
-class MainTableViewCell: UITableViewCell {
+class CryptoCurrencyTableViewCell: UITableViewCell {
 
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
 
-    weak var viewModel: MainTableViewCellViewModelType? {
+    weak var viewModel: CryptoCurrencyTableViewCellViewModelType? {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             titleLabel.text = viewModel.name

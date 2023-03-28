@@ -1,17 +1,17 @@
 import UIKit
 
-class MainTableViewController: UIViewController {
+class CryptoCurrencyTableViewController: UIViewController {
     
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     private var tableView: UITableView = UITableView()
     private var loginViewModel = LoginViewModel()
     
-    var viewModel: MainTableViewViewModelType?
+    var viewModel: CryptoCurrencyTableViewViewModelType?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(tableView)
-        viewModel = MainTableViewModel()
+        viewModel = CryptoCurrencyTableViewViewModel()
         setupTableView()
         setupActivityIndicator()
         navigationController()
@@ -66,7 +66,7 @@ class MainTableViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(MainTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CryptoCurrencyTableViewCell.self, forCellReuseIdentifier: "cell")
         NSLayoutConstraint.activate([
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
@@ -88,18 +88,15 @@ class MainTableViewController: UIViewController {
     
 }
 
-extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
+extension CryptoCurrencyTableViewController: UITableViewDataSource, UITableViewDelegate {
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        let asset = tableViewModel.asset(atIndex: indexPath.row)
-//        let basicView = BasicViewController()
-//        basicView.idLabel.text = "id: \(asset.id)"
-//        basicView.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(dismis))
-//        let navigation = UINavigationController(rootViewController: basicView)
-//        navigation.modalPresentationStyle = .fullScreen
-//        present(navigation, animated: true)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let asset = viewModel?.asset(atIndex: indexPath.row), let basicViewModel = viewModel?.basicViewModel(forAsset: asset) {
+            let basicView = CurrencyDetailViewController(viewModel: basicViewModel)
+            navigationController?.pushViewController(basicView, animated: true)
+        }
+    }
     
     @objc func dismis() {
         dismiss(animated: true, completion: nil)
@@ -110,14 +107,14 @@ extension MainTableViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 88
+        return 80
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MainTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CryptoCurrencyTableViewCell
         
         guard let tableViewCell = cell, let viewModel = viewModel else { return UITableViewCell() }
-        
+        cell?.accessoryType = .disclosureIndicator
         let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
         tableViewCell.viewModel = cellViewModel
         return tableViewCell

@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		840A3F0029B9E80F00B5A01A /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A3EFF29B9E80F00B5A01A /* Users.swift */; };
+		840A3F0029B9E80F00B5A01A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A3EFF29B9E80F00B5A01A /* User.swift */; };
 		84221E2429BE27A10050FF73 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84221E2329BE27A10050FF73 /* LoginViewModel.swift */; };
 		84221E2729BE28DF0050FF73 /* LoginViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84221E2629BE28DF0050FF73 /* LoginViewModelType.swift */; };
 		842513A829B5F90900950A68 /* RequestServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513A729B5F90900950A68 /* RequestServer.swift */; };
-		842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513AA29B5FF3400950A68 /* MainTableViewCell.swift */; };
-		8447EE4729B744D200F171FE /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447EE4629B744D200F171FE /* BasicViewController.swift */; };
-		84596C3A29BF11EA00FAF4DC /* MainTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84596C3929BF11EA00FAF4DC /* MainTableViewModel.swift */; };
-		845D859F29D1971D00C5042E /* MainTableViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D859E29D1971D00C5042E /* MainTableViewViewModelType.swift */; };
-		845D85A129D197FF00C5042E /* MainTableViewCellViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D85A029D197FF00C5042E /* MainTableViewCellViewModelType.swift */; };
-		845D85A329D19BAE00C5042E /* MainTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D85A229D19BAE00C5042E /* MainTableViewCellViewModel.swift */; };
-		84D1821329B1CC5F0049EDB2 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */; };
+		842513AC29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513AA29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift */; };
+		843DA2CE29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DA2CD29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift */; };
+		843DA2D229D2252400F8FA9F /* ExtentionForTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DA2D129D2252400F8FA9F /* ExtentionForTextField.swift */; };
+		8447EE4729B744D200F171FE /* CurrencyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447EE4629B744D200F171FE /* CurrencyDetailViewController.swift */; };
+		84596C3A29BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84596C3929BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift */; };
+		845D859F29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D859E29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift */; };
+		845D85A129D197FF00C5042E /* CryptoCurrencyTableViewCellViewModelType .swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D85A029D197FF00C5042E /* CryptoCurrencyTableViewCellViewModelType .swift */; };
+		845D85A329D19BAE00C5042E /* CryptoCurrencyTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D85A229D19BAE00C5042E /* CryptoCurrencyTableViewCellViewModel.swift */; };
+		845D85A529D1AC8C00C5042E /* CurrencyDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D85A429D1AC8C00C5042E /* CurrencyDetailViewModel.swift */; };
+		84D1821329B1CC5F0049EDB2 /* CryptoCurrencyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1821229B1CC5F0049EDB2 /* CryptoCurrencyTableViewController.swift */; };
 		84D1821529B1EE6D0049EDB2 /* CryptoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */; };
 		84E9839529AE04B7008525FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9839429AE04B7008525FA /* AppDelegate.swift */; };
 		84E9839729AE04B7008525FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9839629AE04B7008525FA /* SceneDelegate.swift */; };
@@ -47,17 +50,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		840A3EFF29B9E80F00B5A01A /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		840A3EFF29B9E80F00B5A01A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84221E2329BE27A10050FF73 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		84221E2629BE28DF0050FF73 /* LoginViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelType.swift; sourceTree = "<group>"; };
 		842513A729B5F90900950A68 /* RequestServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServer.swift; sourceTree = "<group>"; };
-		842513AA29B5FF3400950A68 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
-		8447EE4629B744D200F171FE /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
-		84596C3929BF11EA00FAF4DC /* MainTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewModel.swift; sourceTree = "<group>"; };
-		845D859E29D1971D00C5042E /* MainTableViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewViewModelType.swift; sourceTree = "<group>"; };
-		845D85A029D197FF00C5042E /* MainTableViewCellViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCellViewModelType.swift; sourceTree = "<group>"; };
-		845D85A229D19BAE00C5042E /* MainTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCellViewModel.swift; sourceTree = "<group>"; };
-		84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		842513AA29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		843DA2CD29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailViewModelType.swift; sourceTree = "<group>"; };
+		843DA2D129D2252400F8FA9F /* ExtentionForTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionForTextField.swift; sourceTree = "<group>"; };
+		8447EE4629B744D200F171FE /* CurrencyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailViewController.swift; sourceTree = "<group>"; };
+		84596C3929BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewViewModel.swift; sourceTree = "<group>"; };
+		845D859E29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewViewModelType.swift; sourceTree = "<group>"; };
+		845D85A029D197FF00C5042E /* CryptoCurrencyTableViewCellViewModelType .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CryptoCurrencyTableViewCellViewModelType .swift"; sourceTree = "<group>"; };
+		845D85A229D19BAE00C5042E /* CryptoCurrencyTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		845D85A429D1AC8C00C5042E /* CurrencyDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailViewModel.swift; sourceTree = "<group>"; };
+		84D1821229B1CC5F0049EDB2 /* CryptoCurrencyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewController.swift; sourceTree = "<group>"; };
 		84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoModel.swift; sourceTree = "<group>"; };
 		84E9839129AE04B7008525FA /* CryptoSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E9839429AE04B7008525FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				84D1821429B1EE6D0049EDB2 /* CryptoModel.swift */,
-				840A3EFF29B9E80F00B5A01A /* Users.swift */,
+				840A3EFF29B9E80F00B5A01A /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -111,8 +117,9 @@
 			isa = PBXGroup;
 			children = (
 				84221E2329BE27A10050FF73 /* LoginViewModel.swift */,
-				84596C3929BF11EA00FAF4DC /* MainTableViewModel.swift */,
-				845D85A229D19BAE00C5042E /* MainTableViewCellViewModel.swift */,
+				84596C3929BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift */,
+				845D85A229D19BAE00C5042E /* CryptoCurrencyTableViewCellViewModel.swift */,
+				845D85A429D1AC8C00C5042E /* CurrencyDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -121,8 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				84221E2629BE28DF0050FF73 /* LoginViewModelType.swift */,
-				845D859E29D1971D00C5042E /* MainTableViewViewModelType.swift */,
-				845D85A029D197FF00C5042E /* MainTableViewCellViewModelType.swift */,
+				845D859E29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift */,
+				845D85A029D197FF00C5042E /* CryptoCurrencyTableViewCellViewModelType .swift */,
+				843DA2CD29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -132,8 +140,8 @@
 			children = (
 				842513A929B5FEFB00950A68 /* Cells  */,
 				84E9839829AE04B7008525FA /* LoginViewController.swift */,
-				84D1821229B1CC5F0049EDB2 /* MainTableViewController.swift */,
-				8447EE4629B744D200F171FE /* BasicViewController.swift */,
+				84D1821229B1CC5F0049EDB2 /* CryptoCurrencyTableViewController.swift */,
+				8447EE4629B744D200F171FE /* CurrencyDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -149,9 +157,17 @@
 		842513A929B5FEFB00950A68 /* Cells  */ = {
 			isa = PBXGroup;
 			children = (
-				842513AA29B5FF3400950A68 /* MainTableViewCell.swift */,
+				842513AA29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift */,
 			);
 			path = "Cells ";
+			sourceTree = "<group>";
+		};
+		843DA2CF29D224E300F8FA9F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				843DA2D129D2252400F8FA9F /* ExtentionForTextField.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		84E9838829AE04B7008525FA = {
@@ -177,11 +193,12 @@
 		84E9839329AE04B7008525FA /* CryptoSafe */ = {
 			isa = PBXGroup;
 			children = (
-				842513A629B5F8F500950A68 /* Services */,
 				840A3EFE29B9CBD200B5A01A /* Model */,
-				84221E2529BE28C40050FF73 /* Protocol */,
-				84221E2229BE276A0050FF73 /* ViewModel */,
 				84221E2829BE5F730050FF73 /* View */,
+				84221E2229BE276A0050FF73 /* ViewModel */,
+				84221E2529BE28C40050FF73 /* Protocol */,
+				842513A629B5F8F500950A68 /* Services */,
+				843DA2CF29D224E300F8FA9F /* Extension */,
 				84E9839429AE04B7008525FA /* AppDelegate.swift */,
 				84E9839629AE04B7008525FA /* SceneDelegate.swift */,
 				84E9839D29AE04BA008525FA /* Assets.xcassets */,
@@ -338,21 +355,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D1821329B1CC5F0049EDB2 /* MainTableViewController.swift in Sources */,
-				840A3F0029B9E80F00B5A01A /* Users.swift in Sources */,
+				84D1821329B1CC5F0049EDB2 /* CryptoCurrencyTableViewController.swift in Sources */,
+				840A3F0029B9E80F00B5A01A /* User.swift in Sources */,
 				84221E2729BE28DF0050FF73 /* LoginViewModelType.swift in Sources */,
 				842513A829B5F90900950A68 /* RequestServer.swift in Sources */,
 				84E9839929AE04B7008525FA /* LoginViewController.swift in Sources */,
-				845D85A129D197FF00C5042E /* MainTableViewCellViewModelType.swift in Sources */,
-				842513AC29B5FF3400950A68 /* MainTableViewCell.swift in Sources */,
-				845D859F29D1971D00C5042E /* MainTableViewViewModelType.swift in Sources */,
+				845D85A129D197FF00C5042E /* CryptoCurrencyTableViewCellViewModelType .swift in Sources */,
+				842513AC29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift in Sources */,
+				845D859F29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift in Sources */,
+				843DA2CE29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift in Sources */,
 				84E9839529AE04B7008525FA /* AppDelegate.swift in Sources */,
-				8447EE4729B744D200F171FE /* BasicViewController.swift in Sources */,
+				843DA2D229D2252400F8FA9F /* ExtentionForTextField.swift in Sources */,
+				8447EE4729B744D200F171FE /* CurrencyDetailViewController.swift in Sources */,
 				84E9839729AE04B7008525FA /* SceneDelegate.swift in Sources */,
-				845D85A329D19BAE00C5042E /* MainTableViewCellViewModel.swift in Sources */,
+				845D85A329D19BAE00C5042E /* CryptoCurrencyTableViewCellViewModel.swift in Sources */,
 				84221E2429BE27A10050FF73 /* LoginViewModel.swift in Sources */,
+				845D85A529D1AC8C00C5042E /* CurrencyDetailViewModel.swift in Sources */,
 				84D1821529B1EE6D0049EDB2 /* CryptoModel.swift in Sources */,
-				84596C3A29BF11EA00FAF4DC /* MainTableViewModel.swift in Sources */,
+				84596C3A29BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

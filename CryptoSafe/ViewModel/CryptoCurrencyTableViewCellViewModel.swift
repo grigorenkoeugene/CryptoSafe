@@ -1,14 +1,8 @@
-//
-//  MainTableViewCellViewModel.swift
-//  CryptoSafe
-//
-//  Created by admin on 27.03.2023.
-//
 
 import Foundation
 
 
-class MainTableViewCellViewModel: MainTableViewCellViewModelType {
+class CryptoCurrencyTableViewCellViewModel: CryptoCurrencyTableViewCellViewModelType  {
 
     private var assets: Asset
     
