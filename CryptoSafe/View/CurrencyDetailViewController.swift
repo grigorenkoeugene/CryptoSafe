@@ -17,7 +17,7 @@ class CurrencyDetailViewController: UIViewController {
         self.view.addSubview(capUsdLabel)
         idLabel.text = viewModel.id
         nameLabel.text = viewModel.name
-        supplyLabel.text = viewModel.supply
+        supplyLabel.text = viewModel.symbol
         setapIdLabel()
         setapNameLabel()
         setapSupplyLabel()

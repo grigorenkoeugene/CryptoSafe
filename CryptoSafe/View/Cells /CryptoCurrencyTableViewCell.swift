@@ -9,7 +9,7 @@ class CryptoCurrencyTableViewCell: UITableViewCell {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             titleLabel.text = viewModel.name
-            subtitleLabel.text = viewModel.price 
+            subtitleLabel.text = String(viewModel.price)
         }
     }
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

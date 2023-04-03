@@ -4,7 +4,7 @@ class CryptoCurrencyTableViewController: UIViewController {
     
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     private var tableView: UITableView = UITableView()
-    private var loginViewModel = LoginViewModel()
+    private var coordinator = AppCoordinator()
     
     var viewModel: CryptoCurrencyTableViewViewModelType?
 
@@ -25,8 +25,8 @@ class CryptoCurrencyTableViewController: UIViewController {
     }
     
     @objc func backAction() {
-        UserDefaults.standard.set(false, forKey: "authorization")
-        loginViewModel.switchScreen(LoginViewController())
+        AuthManager.isAuthorized = false
+        coordinator.switchScreen(.login)
     }
     
     @objc func sortAction() {
@@ -55,7 +55,7 @@ class CryptoCurrencyTableViewController: UIViewController {
     }
     
     private func navigationController() {
-        self.title = "Крипта"
+        self.title = "Crypto info"
         let backButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(backAction))
         let sortButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up.arrow.down"), style: .plain, target: self, action: #selector(sortAction))
         self.navigationItem.leftBarButtonItem = backButton

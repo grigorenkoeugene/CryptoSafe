@@ -63,11 +63,11 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
     
     func cyrrencyDetailCellViewModel(forIndexPath indexPath: IndexPath) -> CurrencyDetailViewModel? {
         guard let asset = asset(atIndex: indexPath.row) else { return nil }
-        return CurrencyDetailViewModel(id: asset.id, name: asset.name, supply: asset.supply)
+        return CurrencyDetailViewModel(id: asset.id, name: asset.name, symbol: asset.supply)
     }
 
     func cyrrencyDetailViewModel(forAsset asset: Asset) -> CurrencyDetailViewModel {
-        return CurrencyDetailViewModel(id: "id: \(asset.id)", name: "name: \(asset.name)", supply: "supply: \(asset.supply)")
+        return CurrencyDetailViewModel(id: "id: \(asset.id)", name: "name: \(asset.name)", symbol: "supply: \(asset.supply)")
     }
     
     

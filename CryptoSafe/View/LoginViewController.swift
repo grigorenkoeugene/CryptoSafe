@@ -2,68 +2,51 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
-    private var viewModel = LoginViewModel()
+    private var coordinator = AppCoordinator()
     
     private var emailLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Email"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        UILabel(text: "Email")
+    }()
+    
+    private var passwordLabel: UILabel = {
+        UILabel(text: "Password")
     }()
     
     private var emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Write email"
-        textField.backgroundColor = .white
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.layer.cornerRadius = 10
-        textField.indent(size: 10)
-        textField.outdent(size: 50)
-        textField.keyboardType = .default
-        textField.returnKeyType = .done
-        return textField
-    }()
-
-    private var passwordLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Password"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        UITextField(placeholder: "Write email")
     }()
     
     private var passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Write password"
-        textField.isSecureTextEntry = true
-        textField.backgroundColor = .white
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.layer.cornerRadius = 10
-        textField.indent(size: 10)
-        textField.outdent(size: 50)
-        textField.keyboardType = .default
-        textField.returnKeyType = .done
-        return textField
+        UITextField(placeholder: "Write password", isSecureTextEntry: true)
     }()
     
     private var imageHome: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "home")
-        image.contentMode = .scaleAspectFit
-        return image
+        UIImageView(named: "home")
     }()
     
-    private lazy var loginButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("LogIn", for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(loginOnClick), for: .touchUpInside)
-        return button
+    private var imageViewEmailTextField: UIImageView = {
+        UIImageView(named: "iconEmail")
     }()
     
-    private var newView: UIView = {
+    private var imageViewPasswordTextField: UIImageView = {
+        UIImageView(named: "iconPassword")
+    }()
+    
+    private lazy var handleLoginButton: UIButton = {
+        UIButton.loginButton(target: self, action: #selector(handleLoginButtonTap))
+    }()
+    
+    private lazy var createAccountButton: UIButton = {
+        UIButton.createAccountButton(target: self, action: #selector(createAccountButtonTap))
+    }()
+    
+    private var noneAccountlabel: UILabel = {
+        let label = UILabel(text: "Don't have an account yet?")
+        label.textColor = #colorLiteral(red: 0.7506795526, green: 0.7506795526, blue: 0.7506795526, alpha: 1)
+        return label
+    }()
+    
+    private var gradientView: UIView = {
         let gradientLayer = CAGradientLayer()
         let newView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4))
         gradientLayer.frame = newView.bounds
@@ -75,87 +58,54 @@ class LoginViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         newView.layer.insertSublayer(gradientLayer, at: 0)
         let path = UIBezierPath(
-               roundedRect: newView.bounds,
-               byRoundingCorners: [.bottomLeft,.bottomRight],
-               cornerRadii: CGSize(width: 50, height: 50))
+            roundedRect: newView.bounds,
+            byRoundingCorners: [.bottomLeft,.bottomRight],
+            cornerRadii: CGSize(width: 50, height: 50))
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         newView.layer.mask = mask
         return newView
     }()
     
-    private var imageViewEmailTextField: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        image.image = UIImage(named: "iconEmail")
-        image.contentMode = .scaleAspectFill
-        return image
-    }()
-    
-    private var imageViewPasswordTextField: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(named: "iconPassword")
-        image.contentMode = .scaleAspectFill
-        return image
-    }()
-    
-    private var noneAccountlabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Don't have an account yet?"
-        label.alpha = 0.3
-        return label
-    }()
-    
-    private lazy var createAccountButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Create an account", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        let attributedString = NSAttributedString(string: "Create an account", attributes:
-            [.underlineStyle: NSUnderlineStyle.single.rawValue,
-             .underlineColor: UIColor.black])
-        button.setAttributedTitle(attributedString, for: .normal)
-        button.backgroundColor = UIColor.clear
-        button.addTarget(self, action: #selector(createAccountOnClick), for: .touchUpInside)
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(newView)
-        self.view.addSubview(imageHome)
-        viewModel = LoginViewModel()
-        self.view.backgroundColor = .white
-        self.view.addSubview(emailLabel)
-        self.view.addSubview(emailTextField)
-        self.view.addSubview(passwordLabel)
-        self.view.addSubview(passwordTextField)
-        self.view.addSubview(loginButton)
-        self.view.addSubview(noneAccountlabel)
-        self.view.addSubview(createAccountButton)
-        self.emailTextField.addSubview(imageViewEmailTextField)
-        self.passwordTextField.addSubview(imageViewPasswordTextField)
+        
+        view.addSubview(gradientView)
+        setupSubviews()
+        
+        coordinator = AppCoordinator()
+        view.backgroundColor = .white
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
-        createConstraintsOnView()
+        createConstraints()
     }
     
-    @objc func loginOnClick() {
+    private func setupSubviews() {
+        view.addSubview(imageHome)
+        view.addSubview(emailLabel)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordLabel)
+        view.addSubview(passwordTextField)
+        view.addSubview(handleLoginButton)
+        view.addSubview(noneAccountlabel)
+        view.addSubview(createAccountButton)
+        self.emailTextField.addSubview(imageViewEmailTextField)
+        self.passwordTextField.addSubview(imageViewPasswordTextField)
+    }
+    
+    @objc func handleLoginButtonTap() {
         if let email = emailTextField.text, let password = passwordTextField.text,
-            viewModel.checkLogin(email: email, password: password)  {
-            UserDefaults.standard.set(true, forKey: "authorization")
-            viewModel.switchScreen(CryptoCurrencyTableViewController())
+           AuthManager().validate(email: email, password: password) {
+            AuthManager.isAuthorized = true
+            coordinator.switchScreen(.main)
         } else {
             alertMessage(title: "Error", message: "Invalid username or password.", buttonTitle: "OK")
         }
     }
     
-    @objc func createAccountOnClick() {
+    @objc func createAccountButtonTap() {
         alertMessage(title: "Error", message: "This feature is not available.", buttonTitle: "OK")
     }
     
@@ -165,14 +115,14 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func createConstraintsOnView() {
+    private func createConstraints() {
         NSLayoutConstraint.activate([
             
             // newView constraints
-            newView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            newView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            newView.topAnchor.constraint(equalTo: view.topAnchor),
-            newView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/1.4),
+            gradientView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            gradientView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            gradientView.topAnchor.constraint(equalTo: view.topAnchor),
+            gradientView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/1.4),
             
             // imageHome constraints
             imageHome.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -215,14 +165,14 @@ class LoginViewController: UIViewController {
             imageViewPasswordTextField.heightAnchor.constraint(equalToConstant: 30),
             
             // loginButton constraints
-            loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 65),
-            loginButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -65),
-            loginButton.topAnchor.constraint(equalTo: newView.bottomAnchor, constant: -25),
-            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            handleLoginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 65),
+            handleLoginButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -65),
+            handleLoginButton.topAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -25),
+            handleLoginButton.heightAnchor.constraint(equalToConstant: 50),
             
             // noneAccountlabel constraints
             noneAccountlabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            noneAccountlabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 45),
+            noneAccountlabel.topAnchor.constraint(equalTo: handleLoginButton.bottomAnchor, constant: 45),
             noneAccountlabel.heightAnchor.constraint(equalToConstant: 18),
             
             // createAccountButton constraints
@@ -239,3 +189,64 @@ extension LoginViewController: UITextFieldDelegate {
         return true
     }
 }
+
+private extension UILabel {
+    convenience init(text: String) {
+        self.init()
+        self.text = text
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+private extension UITextField {
+    convenience init(placeholder: String, isSecureTextEntry: Bool = false) {
+        self.init()
+        self.placeholder = placeholder
+        self.isSecureTextEntry = isSecureTextEntry
+        self.backgroundColor = .white
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 10
+        self.indent(size: 10)
+        self.outdent(size: 50)
+        self.keyboardType = .default
+        self.returnKeyType = .done
+    }
+}
+
+private extension UIImageView {
+    convenience init(named: String) {
+        self.init()
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.image = UIImage(named: named)
+        self.contentMode = .scaleAspectFill
+    }
+}
+
+private extension UIButton {
+    static func loginButton(target: Any?, action: Selector) -> UIButton {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("LogIn", for: .normal)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 20
+        button.addTarget(target, action: action, for: .touchUpInside)
+        return button
+    }
+    
+    static func createAccountButton(target: Any?, action: Selector) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Create an account", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        let attributedString = NSAttributedString(string: "Create an account", attributes:
+                                                    [.underlineStyle: NSUnderlineStyle.single.rawValue,
+                                                     .underlineColor: UIColor.black])
+        button.setAttributedTitle(attributedString, for: .normal)
+        button.backgroundColor = UIColor.clear
+        button.addTarget(target, action: action, for: .touchUpInside)
+        return button
+    }
+}
+
+
+

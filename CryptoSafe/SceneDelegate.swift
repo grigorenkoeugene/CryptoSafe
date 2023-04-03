@@ -8,8 +8,9 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
+    let appCoordinator = AppCoordinator()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -17,18 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        let isLoggedIn = UserDefaults.standard.bool(forKey: "authorization")
+        let isLoggedIn = AuthManager.isAuthorized
         
-        var rootViewController: UIViewController
+        var state: AppCoordinator.State
         if isLoggedIn {
-            let vc = CryptoCurrencyTableViewController()
-            rootViewController = UINavigationController(rootViewController: vc)
+            state = .main
         } else {
-            let vc = LoginViewController()
-            rootViewController = UINavigationController(rootViewController: vc)
+            state = .login
         }
-        window.rootViewController = rootViewController
-        window.makeKeyAndVisible()
+        
+        appCoordinator.switchScreen(state)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

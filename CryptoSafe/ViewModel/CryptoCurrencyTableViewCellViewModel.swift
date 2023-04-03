@@ -14,7 +14,6 @@ class CryptoCurrencyTableViewCellViewModel: CryptoCurrencyTableViewCellViewModel
         return formatPrice(assets.priceUsd)
     }
     
-    
     init(assets: Asset) {
         self.assets = assets
     }
