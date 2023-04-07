@@ -1,14 +1,14 @@
 
 import UIKit
 
-class AppCoordinator {
+final class AppCoordinator {
     enum State {
         case login
         case main
     }
     
     func switchScreen(_ state: State) {
-        var vc: UIViewController!
+        var vc: UIViewController
         switch state {
         case .login:
             vc = LoginViewController()

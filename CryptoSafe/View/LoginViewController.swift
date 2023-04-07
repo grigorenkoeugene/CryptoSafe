@@ -1,44 +1,26 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
+    // MARK: - Properties
+
     private var coordinator = AppCoordinator()
     
-    private var emailLabel: UILabel = {
-        UILabel(text: "Email")
-    }()
+    private let emailLabel = UILabel(text: "Email")
+    private let passwordLabel = UILabel(text: "Password")
     
-    private var passwordLabel: UILabel = {
-        UILabel(text: "Password")
-    }()
+    private let emailTextField = UITextField(placeholder: "Write email")
+    private let passwordTextField = UITextField(placeholder: "Write password",
+                                                isSecureTextEntry: true)
     
-    private var emailTextField: UITextField = {
-        UITextField(placeholder: "Write email")
-    }()
-    
-    private var passwordTextField: UITextField = {
-        UITextField(placeholder: "Write password", isSecureTextEntry: true)
-    }()
-    
-    private var imageHome: UIImageView = {
-        UIImageView(named: "home")
-    }()
-    
-    private var imageViewEmailTextField: UIImageView = {
-        UIImageView(named: "iconEmail")
-    }()
-    
-    private var imageViewPasswordTextField: UIImageView = {
-        UIImageView(named: "iconPassword")
-    }()
-    
-    private lazy var handleLoginButton: UIButton = {
-        UIButton.loginButton(target: self, action: #selector(handleLoginButtonTap))
-    }()
-    
-    private lazy var createAccountButton: UIButton = {
-        UIButton.createAccountButton(target: self, action: #selector(createAccountButtonTap))
-    }()
+    private let imageHome = UIImageView(named: "home")
+    private let imageViewEmailTextField = UIImageView(named: "iconEmail")
+    private let imageViewPasswordTextField = UIImageView(named: "iconPassword")
+
+    private lazy var handleLoginButton = UIButton.loginButton(target: self,
+                                                              action: #selector(handleLoginButtonTap))
+    private lazy var createAccountButton = UIButton.createAccountButton(target: self,
+                                                                        action: #selector(createAccountButtonTap))
     
     private var noneAccountlabel: UILabel = {
         let label = UILabel(text: "Don't have an account yet?")
@@ -67,6 +49,9 @@ class LoginViewController: UIViewController {
         return newView
     }()
     
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +67,8 @@ class LoginViewController: UIViewController {
         createConstraints()
     }
     
+    // MARK: - Setup
+
     private func setupSubviews() {
         view.addSubview(imageHome)
         view.addSubview(emailLabel)
@@ -95,6 +82,8 @@ class LoginViewController: UIViewController {
         self.passwordTextField.addSubview(imageViewPasswordTextField)
     }
     
+    // MARK: - Actions
+
     @objc func handleLoginButtonTap() {
         if let email = emailTextField.text, let password = passwordTextField.text,
            AuthManager().validate(email: email, password: password) {
@@ -115,6 +104,8 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    // MARK: - Constraints
+
     private func createConstraints() {
         NSLayoutConstraint.activate([
             
@@ -182,6 +173,8 @@ class LoginViewController: UIViewController {
         ])
     }
 }
+
+// MARK: - Extension
 
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -13,7 +13,7 @@
 		842513A829B5F90900950A68 /* RequestServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513A729B5F90900950A68 /* RequestServer.swift */; };
 		842513AC29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842513AA29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift */; };
 		843DA2CE29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DA2CD29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift */; };
-		843DA2D229D2252400F8FA9F /* ExtentionForTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DA2D129D2252400F8FA9F /* ExtentionForTextField.swift */; };
+		843DA2D229D2252400F8FA9F /* ExtentionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DA2D129D2252400F8FA9F /* ExtentionTextField.swift */; };
 		8447EE4729B744D200F171FE /* CurrencyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447EE4629B744D200F171FE /* CurrencyDetailViewController.swift */; };
 		84596C3A29BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84596C3929BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift */; };
 		845D859F29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D859E29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift */; };
@@ -61,7 +61,7 @@
 		842513A729B5F90900950A68 /* RequestServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestServer.swift; sourceTree = "<group>"; };
 		842513AA29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		843DA2CD29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailViewModelType.swift; sourceTree = "<group>"; };
-		843DA2D129D2252400F8FA9F /* ExtentionForTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionForTextField.swift; sourceTree = "<group>"; };
+		843DA2D129D2252400F8FA9F /* ExtentionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionTextField.swift; sourceTree = "<group>"; };
 		8447EE4629B744D200F171FE /* CurrencyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailViewController.swift; sourceTree = "<group>"; };
 		84596C3929BF11EA00FAF4DC /* CryptoCurrencyTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewViewModel.swift; sourceTree = "<group>"; };
 		845D859E29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoCurrencyTableViewViewModelType.swift; sourceTree = "<group>"; };
@@ -134,20 +134,20 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		84221E2529BE28C40050FF73 /* Protocols */ = {
+		84221E2529BE28C40050FF73 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				84C536BA29DAEB64007CCC7E /* Protocol for table view */,
+				84C536BA29DAEB64007CCC7E /* TableProtocol */,
 				84221E2629BE28DF0050FF73 /* LoginViewModelType.swift */,
 				843DA2CD29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift */,
 			);
-			path = Protocols;
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		84221E2829BE5F730050FF73 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				842513A929B5FEFB00950A68 /* Cells  */,
+				842513A929B5FEFB00950A68 /* Cell */,
 				84E9839829AE04B7008525FA /* LoginViewController.swift */,
 				84D1821229B1CC5F0049EDB2 /* CryptoCurrencyTableViewController.swift */,
 				8447EE4629B744D200F171FE /* CurrencyDetailViewController.swift */,
@@ -155,26 +155,26 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		842513A629B5F8F500950A68 /* Services */ = {
+		842513A629B5F8F500950A68 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				842513A729B5F90900950A68 /* RequestServer.swift */,
 			);
-			path = Services;
+			path = Service;
 			sourceTree = "<group>";
 		};
-		842513A929B5FEFB00950A68 /* Cells  */ = {
+		842513A929B5FEFB00950A68 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				842513AA29B5FF3400950A68 /* CryptoCurrencyTableViewCell.swift */,
 			);
-			path = "Cells ";
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		843DA2CF29D224E300F8FA9F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				843DA2D129D2252400F8FA9F /* ExtentionForTextField.swift */,
+				843DA2D129D2252400F8FA9F /* ExtentionTextField.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -187,7 +187,7 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		84C536BA29DAEB64007CCC7E /* Protocol for table view */ = {
+		84C536BA29DAEB64007CCC7E /* TableProtocol */ = {
 			isa = PBXGroup;
 			children = (
 				845D859E29D1971D00C5042E /* CryptoCurrencyTableViewViewModelType.swift */,
@@ -197,7 +197,7 @@
 				84C536B829DAE8FE007CCC7E /* CryptoCurrencyDetailViewModel.swift */,
 				845D85A029D197FF00C5042E /* CryptoCurrencyTableViewCellViewModelType .swift */,
 			);
-			path = "Protocol for table view";
+			path = TableProtocol;
 			sourceTree = "<group>";
 		};
 		84E9838829AE04B7008525FA = {
@@ -227,8 +227,8 @@
 				840A3EFE29B9CBD200B5A01A /* Model */,
 				84221E2829BE5F730050FF73 /* View */,
 				84221E2229BE276A0050FF73 /* ViewModel */,
-				84221E2529BE28C40050FF73 /* Protocols */,
-				842513A629B5F8F500950A68 /* Services */,
+				84221E2529BE28C40050FF73 /* Protocol */,
+				842513A629B5F8F500950A68 /* Service */,
 				843DA2CF29D224E300F8FA9F /* Extension */,
 				84E9839429AE04B7008525FA /* AppDelegate.swift */,
 				84E9839629AE04B7008525FA /* SceneDelegate.swift */,
@@ -400,7 +400,7 @@
 				843DA2CE29D220CB00F8FA9F /* CurrencyDetailViewModelType.swift in Sources */,
 				84C536B729DAE8F5007CCC7E /* CryptoCurrencyTableViewModel.swift in Sources */,
 				84E9839529AE04B7008525FA /* AppDelegate.swift in Sources */,
-				843DA2D229D2252400F8FA9F /* ExtentionForTextField.swift in Sources */,
+				843DA2D229D2252400F8FA9F /* ExtentionTextField.swift in Sources */,
 				8447EE4729B744D200F171FE /* CurrencyDetailViewController.swift in Sources */,
 				84E9839729AE04B7008525FA /* SceneDelegate.swift in Sources */,
 				845D85A329D19BAE00C5042E /* CryptoCurrencyTableViewCellViewModel.swift in Sources */,

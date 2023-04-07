@@ -1,12 +1,16 @@
 import UIKit
 
-class CryptoCurrencyTableViewController: UIViewController {
-    
+final class CryptoCurrencyTableViewController: UIViewController {
+
+    // MARK: - Properties
+
     private var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     private var tableView: UITableView = UITableView()
     private var coordinator = AppCoordinator()
+    private var viewModel: CryptoCurrencyTableViewViewModelType?
     
-    var viewModel: CryptoCurrencyTableViewViewModelType?
+    
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,36 +28,8 @@ class CryptoCurrencyTableViewController: UIViewController {
         }
     }
     
-    @objc func backAction() {
-        AuthManager.isAuthorized = false
-        coordinator.switchScreen(.login)
-    }
-    
-    @objc func sortAction() {
-        let alertController = UIAlertController(title: "Сортировка", message: "Выберите вариант сортировки:", preferredStyle: .actionSheet)
-        
-        let action1 = UIAlertAction(title: "По возрастанию цены", style: .default) { action in
-            self.viewModel?.sortAssets(by: .ascending)
-            self.tableView.reloadData()
-        }
-        
-        let action2 = UIAlertAction(title: "По убыванию цены", style: .default) { action in
-            self.viewModel?.sortAssets(by: .descending)
-            self.tableView.reloadData()
-        }
-        
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { action in
-            self.viewModel?.sortAssets(by: .back)
-            self.tableView.reloadData()
-        }
-        
-        alertController.addAction(action1)
-        alertController.addAction(action2)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
+    // MARK: - Navigation
+
     private func navigationController() {
         self.title = "Crypto info"
         let backButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(backAction))
@@ -62,6 +38,36 @@ class CryptoCurrencyTableViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = sortButton
     }
     
+    // MARK: - Actions on navigationBar
+
+    @objc func backAction() {
+        AuthManager.isAuthorized = false
+        coordinator.switchScreen(.login)
+    }
+    
+    @objc func sortAction() {
+        let alertController = UIAlertController(title: "Сортировка", message: "Выберите вариант сортировки:", preferredStyle: .actionSheet)
+        
+        let actions: [(title: String, style: UIAlertAction.Style, sortType: SortOrder)] = [
+            ("По возрастанию цены", .default, .ascending),
+            ("По убыванию цены", .default, .descending),
+            ("Изменение цены за час по убыванию", .default, .down),
+            ("Изменение цены за час по возрастанию", .default, .up),
+            ("Отмена", .cancel, .back)
+        ]
+        
+        for action in actions {
+            let alertAction = UIAlertAction(title: action.title, style: action.style) { _ in
+                self.viewModel?.sortAssets(by: action.sortType)
+                self.tableView.reloadData()
+            }
+            alertController.addAction(alertAction)
+        }
+        present(alertController, animated: true)
+    }
+    
+    // MARK: - Setup
+
     private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
@@ -85,10 +91,34 @@ class CryptoCurrencyTableViewController: UIViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
 }
 
-extension CryptoCurrencyTableViewController: UITableViewDataSource, UITableViewDelegate {
+// MARK: - UITableViewDataSource
+
+extension CryptoCurrencyTableViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel?.numberOfRows() ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 88
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CryptoCurrencyTableViewCell
+        
+        guard let tableViewCell = cell, let viewModel = viewModel else { return UITableViewCell() }
+        cell?.accessoryType = .disclosureIndicator
+        let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
+        tableViewCell.viewModel = cellViewModel
+        return tableViewCell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension CryptoCurrencyTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -100,23 +130,5 @@ extension CryptoCurrencyTableViewController: UITableViewDataSource, UITableViewD
     
     @objc func dismis() {
         dismiss(animated: true, completion: nil)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.numberOfRows() ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CryptoCurrencyTableViewCell
-        
-        guard let tableViewCell = cell, let viewModel = viewModel else { return UITableViewCell() }
-        cell?.accessoryType = .disclosureIndicator
-        let cellViewModel = viewModel.cellViewModel(forIndexPath: indexPath)
-        tableViewCell.viewModel = cellViewModel
-        return tableViewCell
     }
 }

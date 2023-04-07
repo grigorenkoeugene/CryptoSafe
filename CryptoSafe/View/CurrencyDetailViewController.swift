@@ -1,12 +1,12 @@
 import UIKit
 
-class CurrencyDetailViewController: UIViewController {
+final class CurrencyDetailViewController: UIViewController {
 
-    var viewModel: CurrencyDetailViewModel
-    private var idLabel: UILabel = UILabel()
-    private var nameLabel: UILabel = UILabel()
-    private var supplyLabel: UILabel = UILabel()
-    private var capUsdLabel: UILabel = UILabel()
+    private var viewModel: CurrencyDetailViewModel
+    private var idLabel = UILabel()
+    private var nameLabel = UILabel()
+    private var supplyLabel = UILabel()
+    private var capUsdLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

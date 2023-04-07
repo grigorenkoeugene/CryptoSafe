@@ -3,6 +3,8 @@ import Foundation
 enum SortOrder {
     case ascending
     case descending
+    case down
+    case up
     case back
 }
 
@@ -13,7 +15,6 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
     private var assets: [Asset] = []
     private var originalAssets: [Asset] = []
 
-    
     // MARK: - Methods for getting data
 
     func fetchAssets(completion: @escaping (Error?) -> Void) {
@@ -22,8 +23,8 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
                 completion(NSError(domain: "Ошибка получения данных", code: 0, userInfo: nil))
                 return
             }
-            self?.assets = assets
-            self?.originalAssets = assets
+            self?.assets.append(contentsOf: assets)
+            self?.originalAssets.append(contentsOf: assets)
             completion(nil)
         }
     }
@@ -33,14 +34,21 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
     func sortAssets(by sortOrder: SortOrder) {
         switch sortOrder {
         case .ascending:
-            assets = assets.sorted { (asset1, asset2) -> Bool in
-                return convertToDouble(asset1.priceUsd) ?? 0 < convertToDouble(asset2.priceUsd) ?? 0
-            }
+            assets = assets.sorted(by: { asset1, asset2 in
+                asset1.marketData.priceUsd ?? 0 < asset2.marketData.priceUsd ?? 0
+            })
         case .descending:
-            assets = assets.sorted { (asset1, asset2) -> Bool in
-                return convertToDouble(asset1.priceUsd) ?? 0 > convertToDouble(asset2.priceUsd) ?? 0
-            }
-        case .back:
+            assets = assets.sorted(by: { asset1, asset2 in
+                asset1.marketData.priceUsd ?? 0 > asset2.marketData.priceUsd ?? 0
+            })
+        case .down:
+            assets = assets.sorted(by: { asset1, asset2 in
+                asset1.marketData.percentChangeUSDLast1Hour > asset2.marketData.percentChangeUSDLast1Hour
+            })
+        case .up:
+            assets = assets.sorted(by: { asset1, asset2 in
+                asset1.marketData.percentChangeUSDLast1Hour < asset2.marketData.percentChangeUSDLast1Hour
+            })        case .back:
             assets = originalAssets
         }
     }
@@ -48,7 +56,7 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
     // MARK: - Method
 
     func numberOfRows() -> Int {
-        return assets.count
+        assets.count
     }
     
     func cellViewModel(forIndexPath indexPath: IndexPath) -> CryptoCurrencyTableViewCellViewModelType? {
@@ -63,24 +71,10 @@ class CryptoCurrencyTableViewViewModel: CryptoCurrencyTableViewViewModelType {
     
     func cyrrencyDetailCellViewModel(forIndexPath indexPath: IndexPath) -> CurrencyDetailViewModel? {
         guard let asset = asset(atIndex: indexPath.row) else { return nil }
-        return CurrencyDetailViewModel(id: asset.id, name: asset.name, symbol: asset.supply)
+        return CurrencyDetailViewModel(id: asset.id, name: asset.name, symbol: asset.symbol)
     }
 
     func cyrrencyDetailViewModel(forAsset asset: Asset) -> CurrencyDetailViewModel {
-        return CurrencyDetailViewModel(id: "id: \(asset.id)", name: "name: \(asset.name)", symbol: "supply: \(asset.supply)")
+        return CurrencyDetailViewModel(id: "id: \(asset.id))", name: "name: \(asset.name)", symbol: "supply: \(asset.symbol)")
     }
-    
-    
-    func formatPrice(_ price: String?) -> String {
-        guard let priceString = price, let priceDouble = Double(priceString) else {
-            return "$0.00"
-        }
-        return String(format: "$%.5f", priceDouble)
-    }
-    
-    func convertToDouble(_ string: String?) -> Double? {
-        guard let string = string else { return nil }
-        return Double(string)
-    }
-
 }

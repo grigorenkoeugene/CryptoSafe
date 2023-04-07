@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewModel: LoginViewModelType {
+class LoginViewModel {
     
 }
 
